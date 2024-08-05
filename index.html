@@ -1,5 +1,85 @@
-<html>
-    <body>
-        <h1>YThi is sample</h1>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/01_login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>Are you new to this platform, then click the below link for create an account.</p>
+        <p><a href="02_registration.html">Create an account</a></p>
+    </div>
+
+    <script src="./common/script.js"></script>
+
+    <script>
+        // Check if user data is already in local storage
+        document.addEventListener('DOMContentLoaded', function () {
+            if (localStorage.getItem('email') && localStorage.getItem('password')) {
+                alert('You are already logged in!');
+                window.location.href = '03_home.html';
+            }
+        })
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            let isValid = false;
+            event.preventDefault()
+
+            // Email validation
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (!emailInput.validity.valid) {
+                emailError.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Password validation
+            const passwordInput = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            if (!passwordInput.validity.valid) {
+                if (passwordInput.validity.valueMissing) {
+                    passwordError.textContent = 'Please enter a password.';
+                } else if (passwordInput.validity.tooShort) {
+                    passwordError.textContent = 'Password must be at least 6 characters long.';
+                }
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            isValid = checkAuthentication(emailInput.value, passwordInput.value);
+            
+            // If the form is invalid, prevent submission
+            if (!isValid) {
+                alert('Invalid email or password')
+                event.preventDefault();
+            } else {
+                setDataToLocalStorage('John', 'Doe', 'john.doe@example.com', 'securepassword')
+                alert('Login Successful!');
+                window.location.href = '03_home.html';
+            }
+        });
+    </script>
+</body>
+
 </html>
