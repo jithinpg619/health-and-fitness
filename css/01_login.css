@@ -32,6 +32,12 @@ body {
     margin-bottom: 5px;
 }
 
+.main-title  {
+    text-align: center;
+    font-family: sans-serif;
+    color: rgb(0, 0, 0);
+}
+
 .login-container .form-group input {
     width: 100%;
     padding: 10px;
