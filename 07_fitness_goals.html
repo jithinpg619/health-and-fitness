@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Goals Management</title>
+    <style>
+        body {
+	    color:#ffffff;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .common-width {
+    width: 600px;
+}
+        .fitness-container {
+            background-color: #3528dc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        .fitness-container h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .fitness-container .form-group {
+            margin-bottom: 15px;
+	margin-right: 15px;
+        }
+        .fitness-container .form-group label {
+            color: #ffffff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .fitness-container .form-group input, 
+        .fitness-container .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .fitness-container .form-group input:invalid,
+        .fitness-container .form-group select:invalid {
+            border-color: red;
+        }
+        .fitness-container .form-group input:valid,
+        .fitness-container .form-group select:valid {
+            border-color: green;
+        }
+        .fitness-container .form-group .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .fitness-container button {
+            width: 100%;
+            padding: 10px;
+            background-color:  #ff6200;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .fitness-container button:hover {
+            background-color: #45a049;
+        }
+        .fitness-container .info-message {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #FFFFFF;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="div">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Health & Fitness</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link active" aria-current="page" href="03_home.html">Home</a>
+                      <a id="logoutLink" class="nav-link" href="01_login.html">Logout</a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+        </div>
+
+        <div class="row common-width">    <div class="fitness-container">
+            <h2>Fitness Goals Management</h2>
+            <form id="fitnessForm">
+                <div class="form-group">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" id="weight" name="weight" required>
+                    <div class="error-message" id="weightError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" id="height" name="height" required>
+                    <div class="error-message" id="heightError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                    <div class="error-message" id="ageError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="fitnessLevel">Fitness Level:</label>
+                    <select id="fitnessLevel" name="fitnessLevel" required>
+                        <option value="" disabled selected>Select your fitness level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                    <div class="error-message" id="fitnessLevelError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="goals">Goals:</label>
+                    <select id="goals" name="goals" required>
+                        <option value="" disabled selected>Select your goals</option>
+                        <option value="Weight Loss">Weight Loss</option>
+                        <option value="Losing Body Fat">Losing Body Fat</option>
+                        <option value="Gaining Muscle">Gaining Muscle</option>
+                    </select>
+                    <div class="error-message" id="goalsError"></div>
+                </div>
+                <button type="submit">Update Goals</button>
+            </form>
+            <div class="info-message">
+                By going to the "Fitness Goals" or "Health Profile" page, clicking the "Edit" or "Update Goals" button, changing details like weight, height, age, fitness level, and particular goals, and then saving the changes, a registered user can update their fitness statistics. Upon successful adjustments, a confirmation message shows up, letting users customize their fitness path and monitor their advancement.
+            </div>
+        </div></div>
+    </div>
+
+
+
+    <script src="./common/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    
+    <script>
+
+  // Call the function when the page loads
+  window.onload = getFitnessGoals
+
+        document.getElementById('fitnessForm').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            event.preventDefault();
+            // Weight validation
+            const weightInput = document.getElementById('weight');
+            const weightError = document.getElementById('weightError');
+            if (!weightInput.validity.valid) {
+                weightError.textContent = 'Please enter your weight.';
+                isValid = false;
+            } else {
+                weightError.textContent = '';
+            }
+
+            // Height validation
+            const heightInput = document.getElementById('height');
+            const heightError = document.getElementById('heightError');
+            if (!heightInput.validity.valid) {
+                heightError.textContent = 'Please enter your height.';
+                isValid = false;
+            } else {
+                heightError.textContent = '';
+            }
+
+            // Age validation
+            const ageInput = document.getElementById('age');
+            const ageError = document.getElementById('ageError');
+            if (!ageInput.validity.valid) {
+                ageError.textContent = 'Please enter your age.';
+                isValid = false;
+            } else {
+                ageError.textContent = '';
+            }
+
+            // Fitness Level validation
+            const fitnessLevelInput = document.getElementById('fitnessLevel');
+            const fitnessLevelError = document.getElementById('fitnessLevelError');
+            if (!fitnessLevelInput.validity.valid) {
+                fitnessLevelError.textContent = 'Please select your fitness level.';
+                isValid = false;
+            } else {
+                fitnessLevelError.textContent = '';
+            }
+
+            // Goals validation
+            const goalsInput = document.getElementById('goals');
+            const goalsError = document.getElementById('goalsError');
+            if (!goalsInput.validity.valid) {
+                goalsError.textContent = 'Please select your goals.';
+                isValid = false;
+            } else {
+                goalsError.textContent = '';
+            }
+
+            // If the form is invalid, prevent submission
+            if (!isValid) {
+                event.preventDefault();
+            } else {
+                setFitnessGoals(weightInput.value, heightInput.value, ageInput.value, fitnessLevelInput.value, goalsInput.value);
+                alert('Goals updated successfully!');
+                window.location.href = '03_home.html';
+            }
+        });
+    </script>
+</body>
+</html>

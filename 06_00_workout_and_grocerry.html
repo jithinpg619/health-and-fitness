@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout and Meal Plan Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .controls select,
+        .controls input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-item {
+            color: #FFFFFF;
+            background: #ff6200;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .grid-item h4 {
+            margin-top: 0;
+            color: #FFFFFF;
+        }
+
+        .grid-item .details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .grid-item.expanded .details {
+            display: block;
+        }
+
+        .grid-item.expanded {
+            background: #ff6200;
+            color: #FFFFFF;
+        }
+
+        .grocery-list {
+            margin-top: 20px;
+        }
+
+        .grocery-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .grocery-list li {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .grocery-list li.purchased {
+            text-decoration: line-through;
+            background: #e0e0e0;
+        }
+
+        .grocery-list button {
+            background: #ff6200;
+            border: none;
+            padding: 5px 10px;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="div">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Health & Fitness</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link active" aria-current="page" href="03_home.html">Home</a>
+                      <a id="logoutLink" class="nav-link" href="01_login.html">Logout</a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+        </div>
+
+<div class="row"></div>
+<div class="container">
+    <h1>Workout and Meal Plan Generator</h1>
+
+    <div class="controls">
+        <div>
+            <label for="fitnessLevel">Fitness Level: </label>
+            <select id="fitnessLevel">
+                <option disabled selected>Please select Fitness level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+        </div>
+        <div>
+            <label for="workoutType">Workout Type: </label>
+            <select id="workoutType">
+                <option disabled selected>Please Workout Type for generating Meal Plan and Grocery List</option>
+                <option value="weight-loss">Weight Loss</option>
+                <option value="losing-body-fat">Losing Body Fat</option>
+                <option value="gaining-muscles">Gaining Muscles</option>
+            </select>
+        </div>
+        <!-- <div>
+            <label for="dietaryGoal">Dietary Goal: </label>
+            <select id="dietaryGoal">
+                <option disabled selected>Please Dietary Goal For Generating Grocery Items</option>
+                <option value="weight-loss">Weight Loss</option>
+                <option value="muscle-gain">Losing Body Fat</option>
+                <option value="maintenance">Maintenance</option>
+            </select>
+        </div> -->
+    </div>
+
+    <div class="grid-container" id="workouts">
+        <!-- Workouts will be dynamically inserted here -->
+    </div>
+
+    <h2 id="mealTitle">Meal Plan</h2>
+    <div class="grid-container" id="mealPlan">
+        <!-- Meal plan will be dynamically inserted here -->
+    </div>
+
+    <h2 id="grocerryTitle">Grocery List</h2>
+    <div class="grocery-list">
+        <ul id="groceryList">
+            <!-- Grocery list items will be dynamically inserted here -->
+        </ul>
+    </div>
+</div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log('DOM loaded');
+            // Example usage: Initially hide the sections if needed
+            document.getElementById("mealTitle").style.display = "none";
+            document.getElementById("mealPlan").style.display = "none";
+            document.getElementById("grocerryTitle").style.display = "none";
+            document.getElementById("groceryList").style.display = "none";
+        })
+
+        const data = {
+            workouts: {
+                beginner: {
+                    "weight-loss": [
+                        { title: "Walking", description: "A low-impact cardiovascular exercise that helps to burn calories and improve overall fitness." },
+                        { title: "Bodyweight Squats", description: "Strengthens the legs and glutes, helps to boost metabolism." },
+                        { title: "Jumping Jacks", description: "A full-body workout that increases heart rate and burns calories." }
+                    ],
+                    "losing-body-fat": [
+                        { title: "Circuit Training", description: "Combines different exercises like push-ups, squats, and jumping jacks with minimal rest to burn fat." },
+                        { title: "Resistance Band Exercises", description: "Helps to build lean muscle and burn fat without putting too much strain on the body." },
+                        { title: "Yoga", description: "Improves flexibility and helps reduce body fat through various poses and breathing techniques." }
+                    ],
+                    "gaining-muscles": [
+                        { title: "Push-ups", description: "Strengthens the upper body and builds chest, shoulder, and tricep muscles." },
+                        { title: "Bodyweight Rows", description: "Targets the back muscles and improves upper body strength." },
+                        { title: "Leg Raises", description: "Strengthens the core and helps build abdominal muscles." }
+                    ]
+                },
+                intermediate: {
+                    "weight-loss": [
+                        { title: "Running/Jogging", description: "A more intense cardiovascular exercise that burns more calories than walking." },
+                        { title: "HIIT (High-Intensity Interval Training)", description: "Alternates between short bursts of intense exercise and recovery periods to burn calories quickly." },
+                        { title: "Cycling", description: "A low-impact exercise that burns calories and improves cardiovascular health." }
+                    ],
+                    "losing-body-fat": [
+                        { title: "Weight Training", description: "Incorporates exercises like deadlifts, bench presses, and squats to build muscle and burn fat." },
+                        { title: "Kickboxing", description: "A high-energy workout that helps to burn fat and improve coordination." },
+                        { title: "Swimming", description: "A full-body workout that burns fat and improves cardiovascular fitness." }
+                    ],
+                    "gaining-muscles": [
+                        { title: "Dumbbell Exercises", description: "Includes bicep curls, tricep extensions, and shoulder presses to build muscle." },
+                        { title: "Pull-ups", description: "An effective upper-body exercise that targets the back, shoulders, and arms." },
+                        { title: "Lunges", description: "Strengthens the legs and glutes, helping to build muscle." }
+                    ]
+                },
+                advanced: {
+                    "weight-loss": [
+                        { title: "Sprint Intervals", description: "Short bursts of high-speed running followed by rest or slow jogging to maximize calorie burn." },
+                        { title: "CrossFit", description: "A high-intensity workout combining various functional movements to burn calories." },
+                        { title: "Stair Climbing", description: "Intense cardiovascular workout that burns a significant amount of calories." }
+                    ],
+                    "losing-body-fat": [
+                        { title: "Plyometrics", description: "Explosive movements like jump squats and box jumps to burn fat and build muscle." },
+                        { title: "Kettlebell Workouts", description: "Combines strength and cardio exercises to burn fat and build lean muscle." },
+                        { title: "Rowing", description: "Full-body workout that burns fat and improves cardiovascular endurance." }
+                    ],
+                    "gaining-muscles": [
+                        { title: "Barbell Training", description: "Includes exercises like squats, deadlifts, and bench presses for maximum muscle gain." },
+                        { title: "Olympic Lifting", description: "Advanced lifting techniques such as snatches and clean and jerks to build muscle and strength." },
+                        { title: "Advanced Bodyweight Exercises", description: "Includes exercises like handstand push-ups and pistol squats to build muscle using body weight." }
+                    ]
+                }
+            },
+            mealPlans: {
+                "weight-loss": [
+                    {
+                        meal: "Breakfast",
+                        description: "Oatmeal with berries and a protein shake.",
+                        ingredients: ["1 cup oats", "1/2 cup berries", "1 scoop protein powder", "1 cup milk"]
+                    },
+                    {
+                        meal: "Lunch",
+                        description: "Grilled chicken salad with mixed greens.",
+                        ingredients: ["1 chicken breast", "2 cups mixed greens", "1/2 cup cherry tomatoes", "1/4 cup cucumbers", "2 tbsp vinaigrette"]
+                    },
+                    {
+                        meal: "Dinner",
+                        description: "Baked salmon with quinoa and broccoli.",
+                        ingredients: ["1 salmon fillet", "1 cup quinoa", "1 cup broccoli", "1 tbsp olive oil", "Lemon wedge"]
+                    },
+                    {
+                        meal: "Snacks",
+                        description: "Apple slices with almond butter.",
+                        ingredients: ["1 apple", "2 tbsp almond butter"]
+                    }
+                ],
+                "losing-body-fat": [
+                    {
+                        meal: "Breakfast",
+                        description: "Eggs and toast with avocado.",
+                        ingredients: ["3 eggs", "2 slices whole-grain bread", "1/2 avocado"]
+                    },
+                    {
+                        meal: "Lunch",
+                        description: "Turkey and avocado wrap.",
+                        ingredients: ["1 whole-wheat tortilla", "3 slices turkey breast", "1/2 avocado", "1 cup lettuce", "1 tbsp mayonnaise"]
+                    },
+                    {
+                        meal: "Dinner",
+                        description: "Steak with sweet potato and green beans.",
+                        ingredients: ["1 steak", "1 sweet potato", "1 cup green beans", "1 tbsp butter", "Salt and pepper to taste"]
+                    },
+                    {
+                        meal: "Snacks",
+                        description: "Greek yogurt with honey and nuts.",
+                        ingredients: ["1 cup Greek yogurt", "1 tbsp honey", "1/4 cup mixed nuts"]
+                    }
+                ],
+                "gaining-muscles": [
+                    {
+                        meal: "Breakfast",
+                        description: "Smoothie with banana, spinach, and almond milk.",
+                        ingredients: ["1 banana", "1 cup spinach", "1 cup almond milk", "1 tbsp chia seeds"]
+                    },
+                    {
+                        meal: "Lunch",
+                        description: "Quinoa salad with chickpeas and vegetables.",
+                        ingredients: ["1 cup quinoa", "1/2 cup chickpeas", "1/4 cup bell peppers", "1/4 cup cucumbers", "2 tbsp olive oil", "1 tbsp lemon juice"]
+                    },
+                    {
+                        meal: "Dinner",
+                        description: "Grilled tofu with mixed vegetable stir-fry.",
+                        ingredients: ["1 block tofu", "1 cup bell peppers", "1 cup snap peas", "1 cup carrots", "2 tbsp soy sauce", "1 tbsp sesame oil"]
+                    },
+                    {
+                        meal: "Snacks",
+                        description: "Hummus with carrot sticks.",
+                        ingredients: ["1/2 cup hummus", "1 cup carrot sticks"]
+                    }
+                ]
+            }
+        };
+
+        function generateWorkouts() {
+            const fitnessLevel = $('#fitnessLevel').val();
+            const workoutType = $('#workoutType').val();
+            const workouts = data.workouts[fitnessLevel]?.[workoutType] || [];
+
+            $('#workouts').empty();
+            workouts.forEach(workout => {
+                const workoutItem = `
+                    <div class="grid-item expanded">
+                        <h4>${workout.title}</h4>
+                        <div class="details">${workout.description}</div>                        
+                    </div>
+                `;
+                $('#workouts').append(workoutItem);
+            });
+
+            // $('.grid-item').on('click', function () {
+            //     $(this).toggleClass('expanded');
+            // });
+        }
+
+        function generateMealPlan() {
+
+            document.getElementById("mealTitle").style.display = "block";
+            document.getElementById("mealPlan").style.display = "block";
+            document.getElementById("grocerryTitle").style.display = "block";
+            document.getElementById("groceryList").style.display = "block";
+
+            const dietaryGoal = $('#workoutType').val();
+            const mealPlan = data.mealPlans[dietaryGoal] || [];
+
+            $('#mealPlan').empty();
+            $('#groceryList').empty();
+            const groceryItems = new Set();
+
+            mealPlan.forEach(meal => {
+                const mealItem = `
+                    <div class="grid-item expanded" style="    background: #187800d1;
+    color: #FFFFFF; ">
+                        <h4>${meal.meal}</h4>
+                        <div class="details">
+                            <p>${meal.description}</p>
+                            <p><strong>Ingredients:</strong></p>
+                            <ul>
+                                ${meal.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                $('#mealPlan').append(mealItem);
+
+                meal.ingredients.forEach(ingredient => groceryItems.add(ingredient));
+            });
+
+            groceryItems.forEach(item => {
+                const listItem = `
+                    <li>
+                        <span>${item}</span>
+                        <div class="row expanded">
+                            <button style="background: #3528dc" onclick="markPurchased(this)"><i class="fa-solid fa-cart-shopping"></i> Mark as Purchased</button>
+                            <button onclick="markRemoved(this)"><i class="fa-solid fa-trash"></i> Remove from the list</button>
+                        </div>
+                    </li>
+                `;
+                $('#groceryList').append(listItem);
+            });
+
+            // $('.grid-item').on('click', function () {
+            //     $(this).toggleClass('expanded');
+            // });
+        }
+
+        // function markPurchased(button) {
+        //     $(button).parent().toggleClass('purchased');
+        // }
+
+
+        // function markRemoved(button) {
+        //     // $(button).parent().toggleClass('purchased');
+        // }
+
+        function markPurchased(button) {
+            $(button).closest('li').toggleClass('purchased');
+        }
+
+        function markRemoved(button) {
+            $(button).closest('li').remove();
+        }
+
+
+        $(document).ready(function () {
+            $('#fitnessLevel, #workoutType').on('change', generateWorkouts);
+            $('#workoutType').on('change', generateMealPlan);
+
+            // Generate default workouts and meal plans on page load
+            // generateWorkouts();
+            // generateMealPlan();
+        });
+    </script>
+
+    <script src="https://kit.fontawesome.com/d5a013a21f.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
