@@ -6,7 +6,7 @@
     <title>Profile Management</title>
     <style>
         body {
-	    color:#ffffff;
+            color: #ffffff;
             font-family: Arial, sans-serif;
             background-color: #ffffff;
             display: flex;
@@ -16,14 +16,14 @@
             margin: 0;
         }
         .common-width {
-    width: 600px;
-}
+            width: 600px;
+        }
         .profile-container {
             background-color: #3528dc;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
+            width: 100%;
         }
         .profile-container h2 {
             color: #ffffff;
@@ -43,6 +43,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding is included in width */
         }
         .profile-container .form-group input:invalid {
             border-color: red;
@@ -57,7 +58,7 @@
         .profile-container button {
             width: 100%;
             padding: 10px;
-            background-color:  #ff6200;
+            background-color: #ff6200;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -68,128 +69,121 @@
             background-color: #45a049;
         }
     </style>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 
-<div class="div">
-    <div class="row">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Health & Fitness</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<div class="container common-width">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Health & Fitness</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="03_home.html">Home</a>
-                  <a id="logoutLink" class="nav-link" href="index.html">Logout</a>
+                    <a class="nav-link active" aria-current="page" href="03_home.html">Home</a>
+                    <a id="logoutLink" class="nav-link" href="index.html">Logout</a>
                 </div>
-              </div>
             </div>
-          </nav>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <h2>Profile Management</h2>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <div class="error-message" id="firstNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <div class="error-message" id="lastNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
     </div>
-    <div class="row common-width">
-        <div class="profile-container">
-            <h2>Profile Management</h2>
-            <form id="profileForm">
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                    <div class="error-message" id="firstNameError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                    <div class="error-message" id="lastNameError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <div class="error-message" id="emailError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required minlength="6">
-                    <div class="error-message" id="passwordError"></div>
-                </div>
-                <button type="submit">Update Profile</button>
-            </form>
-        </div></div>
 </div>
 
+<script src="./common/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
+<script>
+    // Call the function when the page loads
+    window.onload = loadDataForEditProfile;
 
+    document.getElementById('profileForm').addEventListener('submit', function(event) {
+        let isValid = true;
 
-    <script src="./common/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    
-    <script>
+        event.preventDefault();
 
-  // Call the function when the page loads
-  window.onload = loadDataForEditProfile
+        // First Name validation
+        const firstNameInput = document.getElementById('firstName');
+        const firstNameError = document.getElementById('firstNameError');
+        if (!firstNameInput.validity.valid) {
+            firstNameError.textContent = 'Please enter your first name.';
+            isValid = false;
+        } else {
+            firstNameError.textContent = '';
+        }
 
+        // Last Name validation
+        const lastNameInput = document.getElementById('lastName');
+        const lastNameError = document.getElementById('lastNameError');
+        if (!lastNameInput.validity.valid) {
+            lastNameError.textContent = 'Please enter your last name.';
+            isValid = false;
+        } else {
+            lastNameError.textContent = '';
+        }
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            let isValid = true;
+        // Email validation
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        if (!emailInput.validity.valid) {
+            emailError.textContent = 'Please enter a valid email address.';
+            isValid = false;
+        } else {
+            emailError.textContent = '';
+        }
 
+        // Password validation
+        const passwordInput = document.getElementById('password');
+        const passwordError = document.getElementById('passwordError');
+        if (!passwordInput.validity.valid) {
+            if (passwordInput.validity.valueMissing) {
+                passwordError.textContent = 'Please enter a password.';
+            } else if (passwordInput.validity.tooShort) {
+                passwordError.textContent = 'Password must be at least 6 characters long.';
+            }
+            isValid = false;
+        } else {
+            passwordError.textContent = '';
+        }
+
+        // If the form is invalid, prevent submission
+        if (!isValid) {
             event.preventDefault();
-            // First Name validation
-            const firstNameInput = document.getElementById('firstName');
-            const firstNameError = document.getElementById('firstNameError');
-            if (!firstNameInput.validity.valid) {
-                firstNameError.textContent = 'Please enter your first name.';
-                isValid = false;
-            } else {
-                firstNameError.textContent = '';
-            }
-
-            // Last Name validation
-            const lastNameInput = document.getElementById('lastName');
-            const lastNameError = document.getElementById('lastNameError');
-            if (!lastNameInput.validity.valid) {
-                lastNameError.textContent = 'Please enter your last name.';
-                isValid = false;
-            } else {
-                lastNameError.textContent = '';
-            }
-
-            // Email validation
-            const emailInput = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            if (!emailInput.validity.valid) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            } else {
-                emailError.textContent = '';
-            }
-
-            // Password validation
-            const passwordInput = document.getElementById('password');
-            const passwordError = document.getElementById('passwordError');
-            if (!passwordInput.validity.valid) {
-                if (passwordInput.validity.valueMissing) {
-                    passwordError.textContent = 'Please enter a password.';
-                } else if (passwordInput.validity.tooShort) {
-                    passwordError.textContent = 'Password must be at least 6 characters long.';
-                }
-                isValid = false;
-            } else {
-                passwordError.textContent = '';
-            }
-
-            // If the form is invalid, prevent submission
-            if (!isValid) {
-                event.preventDefault();
-            } else {
-                setDataToLocalStorage(firstNameInput.value, lastNameInput.value, emailInput.value, passwordInput.value)
-                alert('Profile updated successfully!');
-                window.location.href = '03_home.html';
-            }
-        });
-    </script>
+        } else {
+            setDataToLocalStorage(firstNameInput.value, lastNameInput.value, emailInput.value, passwordInput.value);
+            alert('Profile updated successfully!');
+            window.location.href = '03_home.html';
+        }
+    });
+</script>
 </body>
 </html>

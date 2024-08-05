@@ -28,16 +28,17 @@
         .registration-container h2 {
             margin-bottom: 20px;
             text-align: center;
+            color: #ffffff;
         }
 
         .registration-container .form-group {
             margin-bottom: 15px;
-            margin-right: 20px;
         }
 
         .registration-container .form-group label {
             display: block;
             margin-bottom: 5px;
+            color: #ffffff;
         }
 
         .registration-container .form-group input {
@@ -45,6 +46,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
         .registration-container .form-group input:invalid {
@@ -56,9 +58,9 @@
         }
 
         .registration-container .form-group .error-message {
-            color: #ffffff;
+            color: red;
             font-size: 0.9em;
-            margin: 5px;
+            margin: 5px 0;
         }
 
         .registration-container button {
@@ -88,9 +90,9 @@
                 <div class="error-message" id="firstNameError"></div>
             </div>
             <div class="form-group">
-                <label for="Lastname">Last name:</label>
-                <input type="text" id="Lastname" name="Lastname" required>
-                <div class="error-message" id="LastnameError"></div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <div class="error-message" id="lastNameError"></div>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -109,8 +111,9 @@
     <script src="./common/script.js"></script>
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function (event) {
-            let isValid = true;
             event.preventDefault();
+
+            let isValid = true;
 
             // First Name validation
             const firstNameInput = document.getElementById('firstName');
@@ -122,14 +125,14 @@
                 firstNameError.textContent = '';
             }
 
-            // Lastname validation
-            const LastnameInput = document.getElementById('Lastname');
-            const LastnameError = document.getElementById('LastnameError');
-            if (!LastnameInput.validity.valid) {
-                LastnameError.textContent = 'Please enter your Lastname.';
+            // Last Name validation
+            const lastNameInput = document.getElementById('lastName');
+            const lastNameError = document.getElementById('lastNameError');
+            if (!lastNameInput.validity.valid) {
+                lastNameError.textContent = 'Please enter your last name.';
                 isValid = false;
             } else {
-                LastnameError.textContent = '';
+                lastNameError.textContent = '';
             }
 
             // Email validation
@@ -146,24 +149,31 @@
             const passwordInput = document.getElementById('password');
             const passwordError = document.getElementById('passwordError');
             const uppercaseRegex = /[A-Z]/;
-            if (!passwordInput.validity.valid || !uppercaseRegex.test(passwordInput.value)) {
-                if (passwordInput.validity.valueMissing) {
-                    passwordError.textContent = 'Please enter a password.';
-                } else if (passwordInput.validity.tooShort) {
-                    passwordError.textContent = 'Password must be at least 6 characters long.';
-                } else if (!uppercaseRegex.test(passwordInput.value)) {
-                    passwordError.textContent = 'Password must contain at least one uppercase letter.';
-                }
+            const numberRegex = /[0-9]/;
+            let passwordErrors = [];
+
+            if (passwordInput.validity.valueMissing) {
+                passwordErrors.push('Please enter a password.');
+            }
+            if (passwordInput.validity.tooShort) {
+                passwordErrors.push('Password must be at least 6 characters long.');
+            }
+            if (!uppercaseRegex.test(passwordInput.value)) {
+                passwordErrors.push('Password must contain at least one uppercase letter.');
+            }
+            if (!numberRegex.test(passwordInput.value)) {
+                passwordErrors.push('Password must contain at least one number.');
+            }
+
+            if (passwordErrors.length > 0) {
+                passwordError.textContent = passwordErrors.join(' ');
                 isValid = false;
             } else {
                 passwordError.textContent = '';
             }
 
-            // If the form is invalid, prevent submission
-            if (!isValid) {
-                event.preventDefault();
-            } else {
-                setDataToLocalStorage(firstNameInput.value, LastnameInput.value, emailInput.value, passwordInput.value);
+            if (isValid) {
+                setDataToLocalStorage(firstNameInput.value, lastNameInput.value, emailInput.value, passwordInput.value);
                 alert('Registration Successful!');
                 window.location.href = '03_home.html'; // Redirect to the desired page
             }

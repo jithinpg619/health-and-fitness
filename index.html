@@ -5,59 +5,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./css/01_login.css">
+    <style>
+        body {
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #3528dc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-container .form-group {
+            margin-bottom: 15px;
+        }
+
+        .login-container .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .main-title {
+            text-align: center;
+            font-family: sans-serif;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .login-container .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .login-container .form-group input:invalid {
+            border-color: red;
+        }
+
+        .login-container .form-group input:valid {
+            border-color: green;
+        }
+
+        .login-container .form-group .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6200;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+
+        .login-container p {
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        .login-container a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="div">
-        <div class="row">
-            <h3 class="main-title">Welcome to Health & Fitness</h3>
-        </div>
-        <div class="row">
-
-            <div class="login-container">
-                <h2>Login</h2>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                        <div class="error-message" id="emailError"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required minlength="6">
-                        <div class="error-message" id="passwordError"></div>
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
-                <p >Are you new to this platform, then click the below link for create an account.</p>
-                <p><a href="02_registration.html" style="color: #FFFFFF;">Create an account</a></p>
+    <div class="login-container">
+        <h3 class="main-title">Welcome to Health & Fitness</h3>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError"></div>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>Are you new to this platform? Click the link below to create an account.</p>
+        <p><a href="02_registration.html">Create an account</a></p>
     </div>
 
-
-
-
     <script src="./common/script.js"></script>
-
     <script>
-        // Check if user data is already in local storage
         document.addEventListener('DOMContentLoaded', function () {
+            // Check if user data is already in local storage
             if (localStorage.getItem('email') && localStorage.getItem('password')) {
                 alert('You are already logged in!');
                 window.location.href = '03_home.html';
             }
-        })
+        });
 
         document.getElementById('loginForm').addEventListener('submit', function (event) {
-            let isValid = false;
-            event.preventDefault()
+            event.preventDefault();
+
+            // Assume the checkAuthentication function is properly defined in ./common/script.js
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            let isValid = true;
 
             // Email validation
-            const emailInput = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
             if (!emailInput.validity.valid) {
                 emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
@@ -66,8 +145,6 @@
             }
 
             // Password validation
-            const passwordInput = document.getElementById('password');
-            const passwordError = document.getElementById('passwordError');
             if (!passwordInput.validity.valid) {
                 if (passwordInput.validity.valueMissing) {
                     passwordError.textContent = 'Please enter a password.';
@@ -79,16 +156,22 @@
                 passwordError.textContent = '';
             }
 
-            isValid = checkAuthentication(emailInput.value, passwordInput.value);
-            
-            // If the form is invalid, prevent submission
+            // If validation fails
             if (!isValid) {
-                alert('Invalid email or password')
-                event.preventDefault();
-            } else {
-                setDataToLocalStorage('John', 'Doe', 'john.doe@example.com', 'securepassword')
+                return;
+            }
+
+            // Call the function to check authentication
+            isValid = checkAuthentication(emailInput.value, passwordInput.value);
+
+            // Handle login result
+            if (isValid) {
+                // Store user data in local storage (you might want to use real values here)
+                setDataToLocalStorage('John', 'Doe', emailInput.value, passwordInput.value);
                 alert('Login Successful!');
                 window.location.href = '03_home.html';
+            } else {
+                alert('Invalid email or password');
             }
         });
     </script>
