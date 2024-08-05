@@ -86,7 +86,7 @@
     localStorage.removeItem("measurement");
   
     // Redirect to the login page
-    window.location.href = "01_login.html";
+    window.location.href = "index.html";
   }
   
   function getFitnessGoals() {
