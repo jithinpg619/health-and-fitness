@@ -127,26 +127,10 @@
   }
   
   function setWorkout(title, date, set, rep, note) {
-    // Set data in local storage
-    localStorage.setItem("title", title);
-    localStorage.setItem("date", date);
-    localStorage.setItem("set", set);
-    localStorage.setItem("rep", rep);
-    localStorage.setItem("note", note);
+
   }
   
   function getWorkout() {
-    // Get data from local storage
-    const weight = localStorage.getItem("weight");
-    const height = localStorage.getItem("height");
-    const age = localStorage.getItem("age");
-    const level = localStorage.getItem("level");
-    const goal = localStorage.getItem("goal");
-  
-    // Populate form fields with retrieved data
-    if (weight) document.getElementById("weight").value = weight;
-    if (height) document.getElementById("height").value = height;
-    if (age) document.getElementById("age").value = age;
-    if (level) document.getElementById("fitnessLevel").value = level;
-    if (goal) document.getElementById("goals").value = goal;
+    const workoutHistory = localStorage.getItem("workoutHistory");
+    return workoutHistory ? JSON.parse(workoutHistory) : [];
   }
