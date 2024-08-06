@@ -17,13 +17,28 @@
             margin: 0;
         }
 
+        .container {
+            display: flex;
+            max-width: 800px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .image-section {
+            flex: 1;
+            background: url('./assets/img_1.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 8px 0 0 8px;
+        }
+
         .login-container {
+            flex: 1;
             background-color: #3528dc;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 0 8px 8px 0;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
             text-align: center;
+            color: #ffffff;
         }
 
         .login-container h2 {
@@ -37,13 +52,6 @@
         .login-container .form-group label {
             display: block;
             margin-bottom: 5px;
-        }
-
-        .main-title {
-            text-align: center;
-            font-family: sans-serif;
-            color: #ffffff;
-            margin-bottom: 20px;
         }
 
         .login-container .form-group input {
@@ -95,25 +103,27 @@
 </head>
 
 <body>
-
-    <div class="login-container">
-        <h3 class="main-title">Welcome to Health & Fitness</h3>
-        <h2>Login</h2>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div class="error-message" id="emailError"></div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required minlength="6">
-                <div class="error-message" id="passwordError"></div>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        <p>Are you new to this platform? Click the link below to create an account.</p>
-        <p><a href="02_registration.html">Create an account</a></p>
+    <div class="container">
+        <div class="image-section"></div>
+        <div class="login-container">
+            <h3 class="main-title">Welcome to Health & Fitness</h3>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required minlength="6">
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p>Are you new to this platform? Click the link below to create an account.</p>
+            <p><a href="02_registration.html">Create an account</a></p>
+        </div>
     </div>
 
     <script src="./common/script.js"></script>

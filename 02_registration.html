@@ -7,14 +7,25 @@
     <title>User Registration</title>
     <style>
         body {
-            color: #ffffff;
             font-family: Arial, sans-serif;
-            background-color: #ffffff;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 80%;
+            max-width: 1200px;
+            height: 80vh;
         }
 
         .registration-container {
@@ -22,13 +33,14 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 50%;
+            color: #ffffff;
+            box-sizing: border-box;
         }
 
         .registration-container h2 {
             margin-bottom: 20px;
             text-align: center;
-            color: #ffffff;
         }
 
         .registration-container .form-group {
@@ -38,7 +50,6 @@
         .registration-container .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #ffffff;
         }
 
         .registration-container .form-group input {
@@ -75,37 +86,48 @@
         }
 
         .registration-container button:hover {
-            background-color: #45a049;
+            background-color: #e55b00;
+        }
+
+        .image-container {
+            width: 50%;
+            background-image: url('./assets/img_1.jpg'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            height: 100%;
         }
     </style>
 </head>
 
 <body>
-    <div class="registration-container">
-        <h2>User Registration</h2>
-        <form id="registrationForm">
-            <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" required>
-                <div class="error-message" id="firstNameError"></div>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" required>
-                <div class="error-message" id="lastNameError"></div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div class="error-message" id="emailError"></div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required minlength="6">
-                <div class="error-message" id="passwordError"></div>
-            </div>
-            <button type="submit">Register</button>
-        </form>
+    <div class="container">
+        <div class="registration-container">
+            <h2>User Registration</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <div class="error-message" id="firstNameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <div class="error-message" id="lastNameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required minlength="6">
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <div class="image-container"></div>
     </div>
 
     <script src="./common/script.js"></script>
@@ -118,7 +140,7 @@
             // First Name validation
             const firstNameInput = document.getElementById('firstName');
             const firstNameError = document.getElementById('firstNameError');
-            if (!firstNameInput.validity.valid) {
+            if (firstNameInput.value.trim() === '') {
                 firstNameError.textContent = 'Please enter your first name.';
                 isValid = false;
             } else {
@@ -128,7 +150,7 @@
             // Last Name validation
             const lastNameInput = document.getElementById('lastName');
             const lastNameError = document.getElementById('lastNameError');
-            if (!lastNameInput.validity.valid) {
+            if (lastNameInput.value.trim() === '') {
                 lastNameError.textContent = 'Please enter your last name.';
                 isValid = false;
             } else {
@@ -152,10 +174,10 @@
             const numberRegex = /[0-9]/;
             let passwordErrors = [];
 
-            if (passwordInput.validity.valueMissing) {
+            if (passwordInput.value.trim() === '') {
                 passwordErrors.push('Please enter a password.');
             }
-            if (passwordInput.validity.tooShort) {
+            if (passwordInput.value.length < 6) {
                 passwordErrors.push('Password must be at least 6 characters long.');
             }
             if (!uppercaseRegex.test(passwordInput.value)) {
