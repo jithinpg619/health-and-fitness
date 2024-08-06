@@ -71,6 +71,9 @@
   }
   
   function logoutUser() {
+    
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
     // Perform any additional actions here, such as clearing local storage
     localStorage.removeItem("first_name");
     localStorage.removeItem("last_name");
